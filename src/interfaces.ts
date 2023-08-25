@@ -1,4 +1,5 @@
 export interface PosI {
-    x: number;
-    y: number;
+    fret: number;
+    string: number;
+    note?: string;
 }
