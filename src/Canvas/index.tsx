@@ -103,6 +103,8 @@ const Canvas = (props: CanvasProps) => {
             }
             eachStringWeight.push(fretWeight)
         }
+
+        //the complexity of this function is O(n^2) because of the nested for loops
         return { eachStringWeight, biggetWeight, nextPosNote, nextPosNotes }
     }
 
