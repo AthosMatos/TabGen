@@ -4,7 +4,7 @@ import { PosI } from "../interfaces";
 import Button from "../components/Button";
 import NoteButton from "../components/noteButton";
 import useUpdateWindow from "../hooks/updateWindow";
-import { StarNode, allNotesFromFrets, allNotesUnique, fontSize, frets, strings } from "../conts";
+import { StarNode, allNotesFromFrets, allNotesUnique, fontSize, frets, strings } from "../consts";
 
 const Canvas = (props: CanvasProps) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -114,6 +114,9 @@ const Canvas = (props: CanvasProps) => {
 
         for (let st = 0; st < strings; st++) {
             for (let frt = 0; frt < frets; frt++) {
+
+
+
                 const x = frt * squareSizeRef.current + squareSizeRef.current / 2
                 const y = st * squareSizeRef.current + squareSizeRef.current / 2
 
@@ -195,8 +198,17 @@ const Canvas = (props: CanvasProps) => {
     }
     function drawTabClean(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = "black";
-        for (let st = 0; st < strings; st++) {
+        for (let st = 0; st < strings + 1; st++) {
             for (let frt = 0; frt < frets; frt++) {
+                // if st = 0 print frets numbers
+                if (st === 0) {
+                    ctx.fillStyle = "black";
+                    const fontWidth = ctx.measureText(frt.toString()).width
+                    ctx.fillText(frt.toString(), frt * squareSizeRef.current + squareSizeRef.current / 2 - (fontWidth / 2), st * squareSizeRef.current + squareSizeRef.current / 2 + fontSize / 2);
+                    continue
+                }
+
+
                 const x = frt * squareSizeRef.current + squareSizeRef.current / 2
                 const y = st * squareSizeRef.current + squareSizeRef.current / 2
 
@@ -204,8 +216,8 @@ const Canvas = (props: CanvasProps) => {
                 ctx.arc(x, y, squareSizeRef.current / 2 - 5, 0, 2 * Math.PI);
                 ctx.stroke();
 
-                const fontWidth = ctx.measureText(allNotesFromFrets[st][frt]).width + 5
-                ctx.fillText(` ${allNotesFromFrets[st][frt]}`, frt * squareSizeRef.current + squareSizeRef.current / 2 - (fontWidth / 2), st * squareSizeRef.current + squareSizeRef.current / 2 + fontSize / 2);
+                const fontWidth = ctx.measureText(allNotesFromFrets[st - 1][frt]).width + 5
+                ctx.fillText(` ${allNotesFromFrets[st - 1][frt]}`, frt * squareSizeRef.current + squareSizeRef.current / 2 - (fontWidth / 2), st * squareSizeRef.current + squareSizeRef.current / 2 + fontSize / 2);
             }
         }
     }
@@ -271,7 +283,7 @@ const Canvas = (props: CanvasProps) => {
 
             <canvas
                 width={frets * squareSize}
-                height={strings * squareSize}
+                height={(strings + 1) * squareSize}
                 style={{
                     border: "6px solid black",
                     borderRadius: "1rem"

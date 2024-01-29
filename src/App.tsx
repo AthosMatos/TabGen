@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
 import Canvas from "./Canvas";
-import ASTARTEST from "./Canvas/indexMyAstar";
+
 
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
             }}
         >
             <Canvas size={7} />
-            {/* <ASTARTEST size={7} /> */}
 
         </div>
     );

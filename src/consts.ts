@@ -206,4 +206,4 @@ export const allNotesUnique = [
 
 export const frets = 22;
 export const strings = 6;
-export const fontSize = 10;
+export const fontSize = 14;
